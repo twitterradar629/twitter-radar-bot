@@ -1,0 +1,27 @@
+name: bot
+
+on:
+  workflow_dispatch:
+
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+    
+    steps:
+        - uses: actions/checkout@v2
+    
+        - name: Setup node
+          uses: actions/setup-node@v1
+          with:
+            node-version: '12'
+
+        - name: Install puppeteer
+          run: npm i puppeteer
+
+        - name: Run puppeteer
+          run: node src/puppeteer.js
+
+        - uses: actions/upload-artifact@v2
+          with:
+            name: screenshot
+            path: screenshot.png
